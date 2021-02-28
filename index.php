@@ -101,7 +101,7 @@
 
 
 
-
+          // form validation
 
 
           if( empty($fname) ){
@@ -132,10 +132,8 @@
     				$err['captcha'] = "<p style=\" color:red; \"> Captcha is Required * </p>";
     			}
 
-    			/**
-    			 * Form validation
-    			 */
-    			else if( filter_var($email, FILTER_VALIDATE_EMAIL) == false ){
+
+    			if( filter_var($email, FILTER_VALIDATE_EMAIL) == false ){
 
     				$msg =  "<p class=\"text-danger\"> Invalid email address !</p>";
 
