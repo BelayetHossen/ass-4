@@ -153,7 +153,7 @@
             $msg = "<p class=\"text-danger\"> Photo size should be lower than 500kb !</p>";
 
      			}else {
-     				move_uploaded_file($photo_tmpname, 'uploaded_photos/' . $unique_name );
+     				move_uploaded_file($photo_tmpname, "uploaded_photos/" . $unique_name );
      				$msg = "<p class=\"text-success\"> Your application is submitted successfully !</p>";
 
      			}
