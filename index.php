@@ -46,6 +46,9 @@
 
       <?php
 
+
+        session_start();
+
     		/**
     		 * Student Data Form
     		 */
@@ -58,6 +61,9 @@
           $password = $_POST['inputPassword'];
     			$phoneno = $_POST['phoneno'];
     			$age = $_POST['age'];
+          $session_captcha = $_SESSION['captcha'];
+          $form_captcha = $_POST['captcha'];
+
 
 
     			if( isset($email) ){
@@ -95,7 +101,10 @@
 
 
 
-    			if( empty($fname) ){
+
+
+
+          if( empty($fname) ){
     					$err['fname'] = "<p style=\" color:red; \"> First name is Required * </p>";
     			}
 
@@ -119,13 +128,14 @@
     				$err['age'] = "<p style=\" color:red; \"> Age is Required * </p>";
     			}
 
-
-
+          if( empty($form_captcha) ){
+    				$err['captcha'] = "<p style=\" color:red; \"> Captcha is Required * </p>";
+    			}
 
     			/**
     			 * Form validation
     			 */
-    			if( filter_var($email, FILTER_VALIDATE_EMAIL) == false ){
+    			else if( filter_var($email, FILTER_VALIDATE_EMAIL) == false ){
 
     				$msg =  "<p class=\"text-danger\"> Invalid email address !</p>";
 
@@ -151,6 +161,9 @@
 
      			}else if( $size_in_kb > 500 ){
             $msg = "<p class=\"text-danger\"> Photo size should be lower than 500kb !</p>";
+
+     			}else if( $session_captcha != $form_captcha ){
+            $msg = "<p class=\"text-danger\"> Captcha is not match !</p>";
 
      			}else {
      				move_uploaded_file($photo_tmpname, "uploaded_photos/" . $unique_name );
@@ -220,6 +233,8 @@
       							}
       						?>
                 </div>
+
+
                 <div class="col-md-6">
                   <label for="phoneno" class="form-label">Mobile Number</label>
                   <input name="phoneno" type="text" class="form-control" id="phoneno">
@@ -238,14 +253,20 @@
       							}
       						?>
                 </div>
-
-                <div class="form-group clo-md-6">
+                <div class="col-md-6">
                   <label for="profile_photo"><span style="cursor:pointer;" data-toggle="tooltip" data-placement="right"  title="Add Photo">Upload Your Profile Photo Here</span><img style="cursor:pointer;" data-toggle="tooltip" data-placement="right"  title="Add Photo" width="50" src="image.png" alt=""></label>
     							<input name="profile_photo" style="display:none;" type="file" id="profile_photo">
+                </div>
+                <div class="col-md-6">
+                  <label for="captcha" class="form-label">Humanity Check</label>
+                  <img src="captcha.php" alt="">
+                  <input name="captcha" type="text" class="form-control" id="captcha" placeholder="Type Captcha">
                   <?php
-
-                  ?>
-    						</div>
+      							if( isset($err['captcha']) ){
+      								echo $err['captcha'];
+      							}
+      						?>
+                </div>
                 <div class="col-md-6">
     									<img style="max-width:50%;" id="upload_photo" src="" alt="">
                 </div>
