@@ -271,7 +271,7 @@
     									<img style="max-width:50%;" id="upload_photo" src="" alt="">
                 </div>
                 <div class="col-12 form-group">
-                  <button name="submit" type="submit" class="btn btn-primary mx-auto">Sign in</button>
+                  <button name="submit" type="submit" class="btn btn-primary mx-auto">Sign Up</button>
                 </div>
             </form>
           </div>
